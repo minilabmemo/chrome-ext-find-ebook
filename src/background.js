@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 function setupContextMenu() {
   chrome.contextMenus.create({
     id: 'define-word',
-    title: 'Define',
+    title: `Define`,
     contexts: ['selection']
   });
 }
@@ -32,9 +32,22 @@ chrome.runtime.onInstalled.addListener(() => {
   setupContextMenu();
 });
 
+const websites = [
+  "https://tnml.ebook.hyread.com.tw/searchList.jsp?search_field=FullText&search_input=",
+  "http://lib.ebookservice.tw/tn/#search/"
+]
+
 chrome.contextMenus.onClicked.addListener((data) => {
+  console.log(data.selectionText);
+  // window.open(' http://tw.yahoo.com ', 'Yahoo', config = 'height=500,width=500');
+  chrome.tabs.create({
+    // url: 'data:text/html;charset=utf-8,' + '<p>' + output.join('<p/><p>') + '</p>'
+    url: `https://tnml.ebook.hyread.com.tw/searchList.jsp?search_field=FullText&search_input=${data.selectionText}`
+  })
   chrome.runtime.sendMessage({
     name: 'define-word',
     data: {value: data.selectionText}
   });
+
+
 });
