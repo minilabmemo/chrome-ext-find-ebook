@@ -22,8 +22,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 function setupContextMenu() {
   chrome.contextMenus.create({
-    id: 'define-word',
-    title: `Define`,
+    id: 'find-ebook',
+    title: `find eBook at all websites`,
     contexts: ['selection']
   });
 }
@@ -32,20 +32,23 @@ chrome.runtime.onInstalled.addListener(() => {
   setupContextMenu();
 });
 
+//HyRead ebook/台灣雲端書庫/udn讀書館(臺南分區資源中心)/台灣雲端書庫/國立公共資訊圖書館電子書服務平台
 const websites = [
   "https://tnml.ebook.hyread.com.tw/searchList.jsp?search_field=FullText&search_input=",
-  "http://lib.ebookservice.tw/tn/#search/"
+  "http://lib.ebookservice.tw/tn/#search/",
+  "https://reading.udn.com/udnlib/tnml/booksearch?sort=all&opt=all&kw=",
+  "https://ebook.nlpi.edu.tw/search?search_field=TI&search_input="
 ]
 
 chrome.contextMenus.onClicked.addListener((data) => {
-  console.log(data.selectionText);
-  // window.open(' http://tw.yahoo.com ', 'Yahoo', config = 'height=500,width=500');
-  chrome.tabs.create({
-    // url: 'data:text/html;charset=utf-8,' + '<p>' + output.join('<p/><p>') + '</p>'
-    url: `https://tnml.ebook.hyread.com.tw/searchList.jsp?search_field=FullText&search_input=${data.selectionText}`
+
+  websites.forEach(website => {
+    chrome.tabs.create({
+      url: `${website}${data.selectionText}`
+    })
   })
   chrome.runtime.sendMessage({
-    name: 'define-word',
+    name: 'find-ebook',
     data: {value: data.selectionText}
   });
 

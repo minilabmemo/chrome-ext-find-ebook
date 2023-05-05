@@ -1,12 +1,14 @@
 # <img src="public/icons/icon_48.png" width="45" align="left"> Chrome Ext Find-ebook
 
-My Chrome Extension
+Chrome Extension for quickly search e-book resources
 
 
 ## Features
 
-- Feature 1
-- Feature 2
+- Select a keyword and right-click to quickly search
+   - 選取關鍵字右鍵快速搜尋 電子書資源 
+   - 目前一次打開的網址有： HyRead ebook/台灣雲端書庫/udn讀書館(臺南分區資源中心)/台灣雲端書庫/國立公共資訊圖書館電子書服務平台
+- 插件按鈕點擊輸入關鍵字搜尋（ＴＢＤ）
 
 ---
 ## package init & develop
