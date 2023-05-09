@@ -14,7 +14,7 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "Chrome Ext-find-ebook",
+    "default_title": "find ebook",
     "default_popup": "popup.html"
   },
   "permissions": [

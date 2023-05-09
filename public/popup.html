@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>My Chrome Extension</title>
-    <link rel="stylesheet" href="popup.css" />
+  <meta charset="UTF-8">
+  <title>My Chrome Extension</title>
+  <link rel="stylesheet" href="popup.css" />
 </head>
+
 <body>
   <div class="app">
-    <p class="counter-label">Counter</p>
-    <div id="counter" class="counter"></div>
-    <div class="button-container">
-      <button id="decrementBtn" class="button">-</button>
-      <button id="incrementBtn" class="button">+</button>
+
+    <p class="title"> 台南圖書館電子書線上資源搜尋</p>
+
+    <div class="form">
+      <label for="keyword" width="50px">關鍵字 keyword</label>
+      <input type="text" id="keyword" width="50px">
+    </div>
+    所有資源：
+
+    <div id="search-area">
     </div>
 
-    <hr class="divider" />
+    <button id="searchBtn" class="button">open all</button>
+    <button id="removeBtn" class="button">remove</button>
 
-    <p class="title">Chrome Extension is Ready!</p>
-    <p class="subtitle">Start by updating <code>popup.html</code></p>
+
+
   </div>
 
   <script src="popup.js"></script>
@@ -29,4 +37,5 @@
     To create a production bundle, use `npm run build`.
   -->
 </body>
+
 </html>

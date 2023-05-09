@@ -32,7 +32,7 @@ chrome.runtime.onInstalled.addListener(() => {
   setupContextMenu();
 });
 
-//HyRead ebook/台灣雲端書庫/udn讀書館(臺南分區資源中心)/台灣雲端書庫/國立公共資訊圖書館電子書服務平台
+//websites: HyRead ebook/台灣雲端書庫/udn讀書館(臺南分區資源中心)/台灣雲端書庫/國立公共資訊圖書館電子書服務平台
 const websites = [
   "https://tnml.ebook.hyread.com.tw/searchList.jsp?search_field=FullText&search_input=",
   "http://lib.ebookservice.tw/tn/#search/",
