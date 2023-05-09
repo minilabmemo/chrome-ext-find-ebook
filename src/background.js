@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 function setupContextMenu() {
   chrome.contextMenus.create({
     id: 'find-ebook',
-    title: `find e-Book resources`,
+    title: `find e-Book resources %s`,
     contexts: ['selection']
   });
 }
@@ -48,10 +48,11 @@ chrome.contextMenus.onClicked.addListener((data) => {
   }
   websites.forEach(website => {
     if (website.enabled) {
-      website.url = website.url.replace('{{keyword}}', data.selectionText);
+      let newURL = website.url.replace('{{keyword}}', data.selectionText);
       chrome.tabs.create({
-        url: `${website.url}`
+        url: `${newURL}`
       })
+
     }
   })
 
