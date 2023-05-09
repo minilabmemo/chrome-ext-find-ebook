@@ -122,7 +122,6 @@ import './popup.css';
             url: `${website.url}`
           })
         }
-
       })
     });
   }
