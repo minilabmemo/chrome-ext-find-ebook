@@ -127,44 +127,40 @@ import './popup.css';
   }
 
   function updateWebsites() {
-    console.log("🚀 ~ file: popup.js:101 ~ updateWebsites ~ updateWebsites:", updateWebsites)
-    websitesStorage.get(websites => {
 
+    websitesStorage.get(websites => {
       websites.forEach((website, index) => {
         var input = document.getElementById(`input${index}`).value;
         websites[index].url = input;
-        console.log("🚀 ~ file: popup.js:106 ~ websites.forEach ~ input:", input)
         var inputcheckbox = document.getElementById(`input${index}checked`).checked;
         websites[index].enabled = inputcheckbox;
-
-
       })
 
 
       websitesStorage.set(websites, () => {
-        //document.getElementById('counter').innerHTML = newCount;
-        console.log(" websitesStorage.set(websites", websites)
         let keyword = document.getElementById(`keyword`).value;;
         openWebsitesbykeyword(keyword)
       });
-
+      // Communicate with background file by sending a message
+      chrome.runtime.sendMessage(
+        {
+          type: 'SETTING',
+          payload: {
+            message: websites,
+          },
+        },
+        response => {
+          console.log(response.message);
+        }
+      );
     });
   }
+
+
   document.addEventListener('DOMContentLoaded', restoreWebsites);
 
 
 
 
-  // Communicate with background file by sending a message
-  chrome.runtime.sendMessage(
-    {
-      type: 'GREETINGS',
-      payload: {
-        message: 'Hello, my name is Pop. I am from Popup.',
-      },
-    },
-    response => {
-      console.log(response.message);
-    }
-  );
+
 })();

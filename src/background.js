@@ -6,12 +6,13 @@
 // See https://developer.chrome.com/extensions/background_pages
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === 'GREETINGS') {
+  if (request.type === 'SETTING') {
     const message = `Hi ${sender.tab ? 'Con' : 'Pop'
       }, my name is Bac. I am from Background. It's great to hear from you.`;
 
     // Log message coming from the `request` parameter
     console.log(request.payload.message);
+    websites = request.payload.message;
     // Send a response message
     sendResponse({
       message,
@@ -39,9 +40,9 @@ const defaultWebsites = [
   {"nameTW": "udn X 台南圖書館", "name": "udn library@ tainan", "url": "https://reading.udn.com/udnlib/tnml/booksearch?sort=all&opt=all&kw={{keyword}}", enabled: true},
   {"nameTW": "國立公共資訊圖書館", "name": "national library of public information e-book online service", "url": "https://ebook.nlpi.edu.tw/search?search_field=TI&search_input={{keyword}}", enabled: true}
 ]
-
+let websites;
 chrome.contextMenus.onClicked.addListener((data) => {
-  let websites;
+
   if (typeof websites === 'undefined') {
     websites = defaultWebsites;
   }
