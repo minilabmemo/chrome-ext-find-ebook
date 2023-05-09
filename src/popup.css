@@ -42,7 +42,7 @@ body {
 .title {
     font-size: 18px;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin: 10px;
 }
 
 .subtitle {
@@ -50,6 +50,13 @@ body {
 }
 
 
+code {
+    font-size: 12px;
+    font-family: inherit;
+    background-color: rgba(254, 237, 185, .3);
+    padding: 2px 4px;
+    border-radius: 2px;
+}
 
 input[type=text],
 select {
@@ -69,7 +76,7 @@ input[type=checkbox] {
 
 
 .button-container {
-    margin-top: 15px;
+    margin: 15px;
 }
 
 
