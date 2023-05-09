@@ -5,10 +5,10 @@ import './popup.css';
 (function () {
 
   const defaultWebsites = [
-    {"nameTW": "hyread X 台南圖書館", "name": "ebook.hyread with tainan library", "url": "https://tnml.ebook.hyread.com.tw/searchList.jsp?search_field=FullText&search_input=", enabled: true},
-    {"nameTW": "台灣雲端書庫 X 台南圖書館", "name": "taiwan ebookservice @ tainan", "url": "http://lib.ebookservice.tw/tn/#search/", enabled: true},
-    {"nameTW": "udn X 台南圖書館", "name": "udn library@ tainan", "url": "https://reading.udn.com/udnlib/tnml/booksearch?sort=all&opt=all&kw=", enabled: true},
-    {"nameTW": "國立公共資訊圖書館", "name": "national library of public information e-book online service", "url": "https://ebook.nlpi.edu.tw/search?search_field=TI&search_input=", enabled: true}
+    {"nameTW": "hyread X 台南圖書館", "name": "ebook.hyread with tainan library", "url": "https://tnml.ebook.hyread.com.tw/searchList.jsp?search_field=FullText&search_input={{keyword}}", enabled: true},
+    {"nameTW": "台灣雲端書庫 X 台南圖書館", "name": "taiwan ebookservice @ tainan", "url": "http://lib.ebookservice.tw/tn/#search/{{keyword}}", enabled: true},
+    {"nameTW": "udn X 台南圖書館", "name": "udn library@ tainan", "url": "https://reading.udn.com/udnlib/tnml/booksearch?sort=all&opt=all&kw={{keyword}}", enabled: true},
+    {"nameTW": "國立公共資訊圖書館", "name": "national library of public information e-book online service", "url": "https://ebook.nlpi.edu.tw/search?search_field=TI&search_input={{keyword}}", enabled: true}
   ]
   function restoreWebsites() {
     // Restore  value
@@ -20,8 +20,24 @@ import './popup.css';
         });
       } else {
         setupWebsitesStorage(websites);
+        console.log("🚀 ~ file: popup.js:24 ~ restoreWebsites ~ setupWebsitesStorage:", websites)
       }
+
     });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      document.getElementById('search-area').innerHTML = '';//remove all elements
+      websitesStorage.remove(); //remove
+      websitesStorage.set(defaultWebsites, () => {
+        setupWebsitesStorage(defaultWebsites);
+      });
+
+    });
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      updateWebsites();
+
+    });
+
   }
 
   // We will make use of Storage API to get and store `websites` value
@@ -80,7 +96,9 @@ import './popup.css';
       var newInputcheckbox = document.createElement('input');
       newInputcheckbox.setAttribute('type', 'checkbox');
       newInputcheckbox.setAttribute('id', `input${index}checked`);
-      newInputcheckbox.setAttribute('checked', website.enabled);
+      if (website.enabled) {
+        newInputcheckbox.setAttribute('checked', website.enabled);
+      }
 
       // 在父元素中加入新的 label 元素與 input 元素
       websidediv.appendChild(newLabel);
@@ -90,26 +108,18 @@ import './popup.css';
       searchArea.appendChild(websidediv);
 
     })
-    document.getElementById('searchBtn').addEventListener('click', () => {
-      updateWebsites();
-      let keyword = document.getElementById(`keyword`).value;;
-      openWebsitesbykeyword(keyword)
-    });
 
-    document.getElementById('removeBtn').addEventListener('click', () => {
-      websitesStorage.remove(websites => {
-        console.log("websitesStorage.remove")
-      });
 
-    });
+
   }
 
   function openWebsitesbykeyword(keyword) {
     websitesStorage.get(websites => {
       websites.forEach(website => {
         if (website.enabled) {
+          website.url = website.url.replace('{{keyword}}', keyword);
           chrome.tabs.create({
-            url: `${website.url}${keyword}`
+            url: `${website.url}`
           })
         }
 
@@ -135,6 +145,8 @@ import './popup.css';
       websitesStorage.set(websites, () => {
         //document.getElementById('counter').innerHTML = newCount;
         console.log(" websitesStorage.set(websites", websites)
+        let keyword = document.getElementById(`keyword`).value;;
+        openWebsitesbykeyword(keyword)
       });
 
     });
