@@ -8,10 +8,10 @@ Chrome Extension for quickly search e-book resources
 
 1. Select a keyword and right-click to quickly open all resources
    - 選取關鍵字右鍵'find e-Book resources'快速一次打開所有資源網站
+     <img src="./chrome-right-ebook.png" width="100%" />
 2. click browser toolbar 'find e-book' and input keyword
    - 點擊插件按鈕，輸入關鍵字一次打開所有資源網站
-
-
+    <img src="./chrome-search-ebook.png" width="70%" />
 
 ---
 ## package init & develop

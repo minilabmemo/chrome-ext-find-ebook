@@ -20,7 +20,6 @@ import './popup.css';
         });
       } else {
         setupWebsitesStorage(websites);
-        console.log("🚀 ~ file: popup.js:24 ~ restoreWebsites ~ setupWebsitesStorage:", websites)
       }
 
     });
